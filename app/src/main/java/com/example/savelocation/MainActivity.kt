@@ -1,4 +1,4 @@
-package com.example.basicdatabase
+package com.example.savelocation
 import android.Manifest
 import DataBaseHandler
 import User
@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import app.com.savelocation.R
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
          tvResult.text = ""
          for (i in 0 until data.size) {
             tvResult.append(
-               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude.toFloat +"/n"+ data[i].latitude.toFloat +"/n"
+               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"
             )
          }
       }
@@ -92,21 +91,19 @@ class MainActivity : AppCompatActivity() {
       fusedLocationClient?.lastLocation!!.addOnCompleteListener(this) { task ->
          if (task.isSuccessful && task.result != null) {
             lastLocation = task.result
-            latitudeText!!.text = latitudeLabel + ": " + (lastLocation)!!.latitude
-            longitudeText!!.text = longitudeLabel + ": " + (lastLocation)!!.longitude
          }
          else {
             Log.w(TAG, "getLastLocation:exception", task.exception)
-            showMessage("No location detected. Make sure location is enabled on the device.")
+//            showMessage("No location detected. Make sure location is enabled on the device.")
          }
       }
    }
-   private fun showMessage(string: String1) {
-      val container = findViewById<View>(R.id.linearLayout)
-      if (container != null) {
-         Toast.makeText(this@MainActivity, string, Toast.LENGTH_LONG).show()
-      }
-   }
+//   private fun showMessage(string: String1) {
+//      val container = findViewById<View>(R.id.linearLayout)
+//      if (container != null) {
+//         Toast.makeText(this@MainActivity, string, Toast.LENGTH_LONG).show()
+//      }
+//   }
    private fun showSnackbar(
            mainTextStringId: String1, actionStringId: String1,
            listener: View.OnClickListener
