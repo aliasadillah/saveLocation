@@ -12,9 +12,11 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import app.com.savelocation.R
+import app.com.savelocation.saved
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -23,13 +25,20 @@ import kotlin.String as String1
 class MainActivity : AppCompatActivity() {
    private var fusedLocationClient: FusedLocationProviderClient? = null
    private var lastLocation: Location? = null
-   private var latitudeText: String1? = null
-   private var longitudeText: String1? = null
+//   private var latitudeText: TextView? = null
+//   private var longitudeText: TextView? = null
+//   private var latitudeLabel: String? = null
+//   private var longitudeLabel:String? = null
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      if (!checkPermissions()) {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions()
+         }
+      }
+
+
       setContentView(R.layout.activity_main)
-      var latitudeLabel = resources.getString(R.string.latitudeBabel)
-      var longitudeLabel = resources.getString(R.string.longitudeBabel)
 //      latitudeText = findViewById<String>(R.id.latitudeText)
 //      longitudeText = findViewById<String>(R.id.longitudeText)
       fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -37,8 +46,19 @@ class MainActivity : AppCompatActivity() {
       val context = this
       val db = DataBaseHandler(context)
       btnInsert.setOnClickListener {
+         getLastLocation()
          if (editTextName.text.toString().isNotEmpty()) {
-            val user = User(editTextName.text.toString(), longitudeLabel.toString().toFloat(), latitudeLabel.toString().toFloat())
+
+//            if (task.isSuccessful && task.result != null) {
+//               lastLocation = task.result
+//               latitudeText!!.text = latitudeLabel + ": " + (lastLocation)!!.latitude
+//               longitudeText!!.text = longitudeLabel + ": " + (lastLocation)!!.longitude
+//            }
+//            else {
+//               Log.w(TAG, "getLastLocation:exception", task.exception)
+//               showMessage("No location detected. Make sure location is enabled on the device.")
+//            }
+            val user = User(editTextName.text.toString(), (lastLocation)!!.longitude.toFloat(), (lastLocation)!!.latitude.toFloat())
             db.insertData(user)
             clearField()
          }
@@ -47,29 +67,24 @@ class MainActivity : AppCompatActivity() {
          }
       }
       btnRead.setOnClickListener {
-         val data = db.readData()
-         tvResult.text = ""
-         for (i in 0 until data.size) {
-            tvResult.append(
-               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"
-            )
-         }
+         val intent = Intent(this, saved::class.java)
+         startActivity(intent)
+//         val data = db.readData()
+//         tvResult.text = ""
+//         for (i in 0 until data.size) {
+//            tvResult.append(
+//               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"+"/n"
+//            )
+//         }
       }
    }
    private fun clearField() {
       editTextName.text.clear()
    }
-   public override fun onStart() {
-      super.onStart()
-      if (!checkPermissions()) {
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions()
-         }
-      }
-      else {
-         getLastLocation()
-      }
-   }
+//   public override fun onStart() {
+//      super.onStart()
+//
+//   }
    private fun getLastLocation() {
       if (ActivityCompat.checkSelfPermission(
             this,
@@ -91,6 +106,8 @@ class MainActivity : AppCompatActivity() {
       fusedLocationClient?.lastLocation!!.addOnCompleteListener(this) { task ->
          if (task.isSuccessful && task.result != null) {
             lastLocation = task.result
+//            latitudeText!!.text = latitudeLabel + ": " + (lastLocation)!!.latitude
+//            longitudeText!!.text = longitudeLabel + ": " + (lastLocation)!!.longitude
          }
          else {
             Log.w(TAG, "getLastLocation:exception", task.exception)

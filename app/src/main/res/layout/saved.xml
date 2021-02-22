@@ -5,16 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".saved">
-    <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <TextView
+
+        <!-- <TextView
       android:id="@+id/tvResult"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="8dp"
       android:textSize="16sp"
-      android:textStyle="bold" />
-    </ScrollView>
+      android:textStyle="bold" /> -->
+    <Button
+        android:id="@+id/back"
+        android:layout_width="69dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="415dp"
+        android:layout_height="648dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"></LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
