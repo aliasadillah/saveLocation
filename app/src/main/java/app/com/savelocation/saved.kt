@@ -18,7 +18,7 @@ class saved : AppCompatActivity() {
         }
     }
     private fun showMessage(string: String) {
-      val container = findViewById<View>(R.id.linearLayout)
+      val container = findViewById<View>(R.id.tvResult)
       if (container != null) {
          Toast.makeText(this@saved, string, Toast.LENGTH_LONG).show()
       }

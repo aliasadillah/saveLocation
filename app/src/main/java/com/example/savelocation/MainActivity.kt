@@ -20,6 +20,7 @@ import app.com.savelocation.saved
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlin.math.log
 import kotlin.String as String1
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions()
          }
+//         else{
+//            getLastLocation()
+//         }
       }
 
 
@@ -45,8 +49,9 @@ class MainActivity : AppCompatActivity() {
       title = "KotlinApp"
       val context = this
       val db = DataBaseHandler(context)
+      getLastLocation()
       btnInsert.setOnClickListener {
-         getLastLocation()
+
          if (editTextName.text.toString().isNotEmpty()) {
 
 //            if (task.isSuccessful && task.result != null) {
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 //               Log.w(TAG, "getLastLocation:exception", task.exception)
 //               showMessage("No location detected. Make sure location is enabled on the device.")
 //            }
+
             val user = User(editTextName.text.toString(), (lastLocation)!!.longitude.toFloat(), (lastLocation)!!.latitude.toFloat())
             db.insertData(user)
             clearField()
