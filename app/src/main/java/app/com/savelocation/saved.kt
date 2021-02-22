@@ -9,6 +9,7 @@ import com.example.savelocation.MainActivity
 import kotlinx.android.synthetic.main.saved.*
 
 class saved : AppCompatActivity() {
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.saved)

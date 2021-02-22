@@ -73,15 +73,15 @@ class MainActivity : AppCompatActivity() {
          }
       }
       btnRead.setOnClickListener {
-         val intent = Intent(this, saved::class.java)
-         startActivity(intent)
-//         val data = db.readData()
-//         tvResult.text = ""
-//         for (i in 0 until data.size) {
-//            tvResult.append(
-//               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"+"/n"
-//            )
-//         }
+//         val intent = Intent(this, saved::class.java)
+//         startActivity(intent)
+         val data = db.readData()
+         tvResult.text = ""
+         for (i in 0 until data.size) {
+            tvResult.append(
+               data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"+"/n"
+            )
+         }
       }
    }
    private fun clearField() {
