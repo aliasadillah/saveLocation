@@ -12,7 +12,7 @@ val COL_ID = "id"
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
 1) {
    override fun onCreate(db: SQLiteDatabase?) {
-      val createTable = "CREATE TABLE " + TABLENAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_NAME + " VARCHAR(256)," + COL_LOC1 + " FLOAT,"+ COL_LOC2 + "FLOAT)"
+      val createTable = "CREATE TABLE " + TABLENAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_NAME + " VARCHAR(256)," + COL_LOC1 + " DOUBLE,"+ COL_LOC2 + "DOUBLE)"
       db?.execSQL(createTable)
    }
    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -40,10 +40,10 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
       if (result.moveToFirst()) {
          do {
             val user = User()
-            user.id = result.getString(result.getColumnIndex(COL_ID)).toFloat()
+            user.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
             user.name = result.getString(result.getColumnIndex(COL_NAME))
-            user.longitude = result.getString(result.getColumnIndex(COL_LOC1)).toFloat()
-            user.latitude = result.getString(result.getColumnIndex(COL_LOC2)).toFloat()
+            user.longitude = result.getString(result.getColumnIndex(COL_LOC1)).toDouble()
+            user.latitude = result.getString(result.getColumnIndex(COL_LOC2)).toDouble()
             list.add(user)
          }
          while (result.moveToNext())
@@ -52,4 +52,4 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
    }
 }
 
-class User constructor(var name:String? = null, var longitude:Float?=null, var latitude:Float?=null, var id : Float?=null)
+class User(var name:String? = null, var longitude: Double ?= null, var latitude: Double ?= null, var id: Int? = null)

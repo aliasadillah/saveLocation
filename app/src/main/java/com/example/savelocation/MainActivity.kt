@@ -12,15 +12,12 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import app.com.savelocation.R
-import app.com.savelocation.saved
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlin.math.log
 import kotlin.String as String1
 
 class MainActivity : AppCompatActivity() {
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 //               showMessage("No location detected. Make sure location is enabled on the device.")
 //            }
 
-            val user = User(editTextName.text.toString(), (lastLocation)!!.longitude.toFloat(), (lastLocation)!!.latitude.toFloat())
+            val user = User(editTextName.text.toString(), (lastLocation)!!.longitude, (lastLocation)!!.latitude)
             db.insertData(user)
             clearField()
          }
@@ -73,13 +70,14 @@ class MainActivity : AppCompatActivity() {
          }
       }
       btnRead.setOnClickListener {
-//         val intent = Intent(this, saved::class.java)
-//         startActivity(intent)
+//       val intent = Intent(this, saved::class.java)
+//       startActivity(intent)
          val data = db.readData()
          tvResult.text = ""
          for (i in 0 until data.size) {
             tvResult.append(
                data[i].id.toString() + " " + data[i].name + " " + data[i].longitude +"/n"+ data[i].latitude +"/n"+"/n"
+
             )
          }
       }
