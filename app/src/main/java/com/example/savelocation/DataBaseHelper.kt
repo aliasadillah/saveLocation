@@ -9,6 +9,7 @@ val COL_NAME = "name"
 val COL_LOC1 = "longitude"
 val COL_LOC2 = "latitude"
 val COL_ID = "id"
+//s
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
 1) {
    override fun onCreate(db: SQLiteDatabase?) {
